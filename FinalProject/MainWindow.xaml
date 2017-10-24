@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit"
+        xmlns:Properties="clr-namespace:FinalProject.Properties" 
+        xmlns:local="clr-namespace:FinalProject" 
+        x:Class="FinalProject.MainWindow"
+        Title="MainWindow" Height="462" Width="1177">
+    <Window.DataContext>
+        <local:SortingViewModel/>
+    </Window.DataContext>
+    <Grid Background="#FF7C7C7C">
+        <ItemsControl x:Name="canvas" HorizontalAlignment="Left" Height="411" Margin="159,10,0,0" VerticalAlignment="Top" Width="1000" ItemsSource="{Binding Lines}" Background="Black">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line 
+                        X1="{Binding From.X}" 
+                        Y1="{Binding From.Y}"
+                        X2="{Binding To.X}" 
+                        Y2="{Binding To.Y}"
+                        Stroke="{Binding Stroke}"
+                        StrokeThickness="{Binding StrokeThickness}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<Canvas x:Name="canvas" HorizontalAlignment="Left" Height="411" Margin="159,10,0,0" VerticalAlignment="Top" Width="1000"/>-->
+        <Button x:Name="btnSort" Content="Sort" HorizontalAlignment="Left" Margin="10,401,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click" Command="{Binding SortCommand, Mode=OneWay}"/>
+        <ComboBox x:Name="boxAlgorithm" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" ItemsSource="{Binding Algorithms}" SelectedValue="{Binding SelectedAlgorithm}" DisplayMemberPath="DisplayMember"/>
+        <Label x:Name="lblAlgorithm" Content="Algorithm" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="boxElements" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ElementCounts}" SelectedIndex="1" SelectedValue="{Binding NumElements}"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="75" Click="btnReset_Click" Command="{Binding ResetCommand, Mode=OneWay}"/>
+        <Label x:Name="lblElements" Content="Elements" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblSwaps" Content="{Binding Swaps}" HorizontalAlignment="Left" Margin="159,10,0,0" VerticalAlignment="Top" Background="#00000000" Foreground="White"/>
+        <Label x:Name="lblBigO" Content="Information:" HorizontalAlignment="Left" Margin="0,111,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblAvg" Content="{Binding BigO}" HorizontalAlignment="Left" Margin="0,127,0,0" VerticalAlignment="Top" Width="144"/>
+        <TextBlock x:Name="lblDesc" HorizontalAlignment="Left" Margin="10,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="218" Width="144" Text="{Binding Description}"/>
+        <Label x:Name="lblSelected" Content="{Binding Selected}" HorizontalAlignment="Left" Margin="159,22,0,0" VerticalAlignment="Top" Background="#00000000" Foreground="White"/>
+        <Label x:Name="lblCompared" Content="{Binding Compared}" HorizontalAlignment="Left" Margin="159,34,0,0" VerticalAlignment="Top" Background="#00000000" Foreground="White"/>
+    </Grid>
+</Window>
